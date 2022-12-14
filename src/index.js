@@ -15,9 +15,10 @@ const showCurrentDirName = () => {
 };
 
 const args = parseProcessArgs();
+const username = args.username || 'Anonymous';
 
 const handleProcessExit = () => {
-  console.log(`Thank you for using File Manager, ${args.username}, goodbye!`);
+  console.log(`Thank you for using File Manager, ${username}, goodbye!`);
   process.exit(0);
 };
 
@@ -33,6 +34,12 @@ const handleProcessCdInput = (path) => {
   process.chdir(path);
 };
 
+const handlers = {
+  '.exit': handleProcessExit,
+  up: handleProcessUpInput,
+  cd: handleProcessCdInput,
+};
+
 process.stdin.on('data', (data) => {
   const {
     command,
@@ -43,22 +50,11 @@ process.stdin.on('data', (data) => {
     return;
   }
 
-  if (command === '.exit') {
-    handleProcessExit();
-  }
-
-  if (command === 'up') {
-    handleProcessUpInput();
-  }
-
-  if (command === 'cd') {
-    handleProcessCdInput(args);
-  }
+  handlers[command](args);
 
   showCurrentDirName();
 });
 
 process.on('SIGINT', handleProcessExit);
-  
-console.log(`Welcome to the File Manager, ${args.username}!`);
+console.log(`Welcome to the File Manager, ${username}!`);
 showCurrentDirName();
