@@ -1,6 +1,16 @@
 import process from 'node:process';
-import { handlers as navigationsHandlers } from './navigations/handlers.js';
+import { readdir } from 'node:fs/promises';
 import { parseProcessArgs } from './utils/index.js';
+
+const getFilesList = async () => {
+  try {
+    const path = process.cwd();
+    const files = await readdir(path, { withFileTypes: true });
+    return files;
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 const getCommandFromData = (data) => {
   const row = data.split(' ');
@@ -23,9 +33,31 @@ const handleProcessExit = () => {
   process.exit(0);
 };
 
+const handleProcessUpInput = () => {
+  process.chdir('../');
+};
+
+const handleProcessCdInput = (path) => {
+  if (!path) {
+    return;
+  }
+
+  process.chdir(path);
+};
+
+const handleProcessLsInput = async () => {
+  const files = await getFilesList();
+  console.table(files
+    .map(DirListItem.create)
+    .sort((item1, item2) => (item1.weight - item2.weight))
+  );
+};
+
 const handlers = {
   '.exit': handleProcessExit,
-  ...navigationsHandlers,
+  up: handleProcessUpInput,
+  cd: handleProcessCdInput,
+  ls: handleProcessLsInput,
 };
 
 process.stdin.on('data', (data) => {
