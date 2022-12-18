@@ -2,6 +2,7 @@ import process from 'node:process';
 import { handlers as navigationsHandlers } from './navigations/handlers.js';
 import { handlers as fileHandlers } from './files/handlers.js';
 import { handlers as osHandlers } from './os/handlers.js';
+import { handlers as hashHandlers } from './hash/handlers.js';
 import { parseProcessArgs } from './utils/index.js';
 
 const getCommandFromData = (data) => {
@@ -30,6 +31,7 @@ const handlers = {
   ...navigationsHandlers,
   ...fileHandlers,
   ...osHandlers,
+  ...hashHandlers,
 };
 
 process.stdin.on('data', (data) => {
@@ -42,7 +44,12 @@ process.stdin.on('data', (data) => {
     return;
   }
 
-  handlers[command](args);
+  if (!handlers[command]) {
+    console.error('Invalid input');
+  } else {
+    handlers[command](args);
+  }
+
 
   showCurrentDirName();
 });

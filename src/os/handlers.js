@@ -24,10 +24,11 @@ const handleProcessOsInput = ([flag]) => {
   const value = flag.slice(2);
 
   if (!functionsByFlags[value]) {
-    return;
+    console.error('Invalid input');
+  } else {
+    functionsByFlags[value]()
   }
 
-  functionsByFlags[value]()
 };
 
 export const handlers = {
