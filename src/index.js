@@ -1,6 +1,7 @@
 import process from 'node:process';
 import { handlers as navigationsHandlers } from './navigations/handlers.js';
 import { handlers as fileHandlers } from './files/handlers.js';
+import { handlers as osHandlers } from './os/handlers.js';
 import { parseProcessArgs } from './utils/index.js';
 
 const getCommandFromData = (data) => {
@@ -28,6 +29,7 @@ const handlers = {
   '.exit': handleProcessExit,
   ...navigationsHandlers,
   ...fileHandlers,
+  ...osHandlers,
 };
 
 process.stdin.on('data', (data) => {
