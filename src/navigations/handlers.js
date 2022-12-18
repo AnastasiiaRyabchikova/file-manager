@@ -7,7 +7,7 @@ const handleProcessUpInput = () => {
   process.chdir('../');
 };
 
-const handleProcessCdInput = (path) => {
+const handleProcessCdInput = ([path]) => {
   if (!path) {
     return;
   }
