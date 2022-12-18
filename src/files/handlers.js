@@ -1,12 +1,11 @@
-import { createFile } from "./utils.js";
+import { createFile, renameFile } from "./utils.js";
 
 const handleProcessAddInput = ([path]) => {
   createFile(path);
 };
 
 const handleProcessRnInput = (args) => {
-  console.log(args);
-  // createFile(path);
+  renameFile(args[0], args[1]);
 };
 
 export const handlers = {
