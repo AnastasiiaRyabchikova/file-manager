@@ -1,5 +1,6 @@
 import process from 'node:process';
 import { handlers as navigationsHandlers } from './navigations/handlers.js';
+import { handlers as fileHandlers } from './files/handlers.js';
 import { parseProcessArgs } from './utils/index.js';
 
 const getCommandFromData = (data) => {
@@ -7,7 +8,7 @@ const getCommandFromData = (data) => {
 
   return {
     command: row[0],
-    args: row[1],
+    args: row.slice(1),
   };
 };
 
@@ -26,6 +27,7 @@ const handleProcessExit = () => {
 const handlers = {
   '.exit': handleProcessExit,
   ...navigationsHandlers,
+  ...fileHandlers,
 };
 
 process.stdin.on('data', (data) => {
