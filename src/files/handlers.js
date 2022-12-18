@@ -3,6 +3,7 @@ import {
   renameFile,
   removeFile,
   readFile,
+  copyFile,
 } from "./utils.js";
 
 const handleProcessCatInput = ([path]) => {
@@ -17,8 +18,8 @@ const handleProcessRnInput = (args) => {
   renameFile(args[0], args[1]);
 };
 
-const handleProcessCpInput = ([newPath, oldPath]) => {
-  console.log('cp', { newPath, oldPath });
+const handleProcessCpInput = ([oldPath, newPath]) => {
+  copyFile(oldPath, newPath);
 };
 
 const handleProcessMvInput = ([ newPath, oldPath ]) => {
