@@ -22,8 +22,9 @@ const handleProcessCpInput = ([oldPath, newPath]) => {
   copyFile(oldPath, newPath);
 };
 
-const handleProcessMvInput = ([ newPath, oldPath ]) => {
-  console.log('mv', { newPath, oldPath });
+const handleProcessMvInput = ([ oldPath, newPath ]) => {
+  copyFile(oldPath, newPath);
+  removeFile(oldPath);
 };
 
 const handleProcessRmInput = ([ path ]) => {

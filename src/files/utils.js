@@ -1,6 +1,7 @@
 import {
   appendFile,
   rename,
+  unlink,
 } from 'node:fs/promises';
 import {
   createReadStream,
@@ -47,7 +48,7 @@ export const removeFile = async (path) => {
   try {
     await unlink(path);
   } catch (error) {
-    throw new Error('FS operation failed');
+    console.error(error);
   }  
 };
 
