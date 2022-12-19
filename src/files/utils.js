@@ -19,7 +19,7 @@ import {
 
 export const readFile = async (path) => {
   try {
-    const readStream = createReadStream(path);
+    const readStream = createReadStream(getAbsPath(path));
     readStream.on('data', (buffer) => {
       console.log(buffer.toString());
     });
@@ -30,7 +30,7 @@ export const readFile = async (path) => {
 
 export const createFile = async (path) => {
   try {
-    await appendFile(path, '', { flaf: 'ax' });
+    await appendFile(getAbsPath(path), '', { flaf: 'ax' });
   } catch (error) {
     console.error(error)
   }
@@ -38,7 +38,7 @@ export const createFile = async (path) => {
 
 export const renameFile = async (oldPath, newPath) => {
   try {
-    await rename(oldPath, newPath);
+    await rename(getAbsPath(oldPath), getAbsPath(newPath));
   } catch (error) {
     console.error(error)
   }
@@ -46,7 +46,7 @@ export const renameFile = async (oldPath, newPath) => {
 
 export const removeFile = async (path) => {
   try {
-    await unlink(path);
+    await unlink(getAbsPath(path));
   } catch (error) {
     console.error(error);
   }  
