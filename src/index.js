@@ -3,6 +3,7 @@ import { handlers as navigationsHandlers } from './navigations/handlers.js';
 import { handlers as fileHandlers } from './files/handlers.js';
 import { handlers as osHandlers } from './os/handlers.js';
 import { handlers as hashHandlers } from './hash/handlers.js';
+import { handlers as compressHandlers } from './compress/handlers.js';
 import { parseProcessArgs } from './utils/index.js';
 
 const getCommandFromData = (data) => {
@@ -32,6 +33,7 @@ const handlers = {
   ...fileHandlers,
   ...osHandlers,
   ...hashHandlers,
+  ...compressHandlers,
 };
 
 process.stdin.on('data', (data) => {
