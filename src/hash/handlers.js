@@ -1,8 +1,7 @@
-import os from 'node:os';
-import { createHash } from 'node:crypto';
+import { calculateHash } from './utils.js';
 
 const handleProcessHashInput = ([path]) => {
-  createHash(path);
+  console.log(calculateHash(path));
 };
 
 export const handlers = {
